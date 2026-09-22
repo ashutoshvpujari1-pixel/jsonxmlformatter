@@ -1,0 +1,1715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>JSON XML CSV Formatter, Validator, Minifier & Auto Repair Tool</title>
+
+<meta name="description"
+      content="Free online JSON, XML and CSV formatter, validator, minifier, error detector and auto repair tool. Format, validate, minify, repair, copy, download, email and share your data.">
+
+<meta name="keywords"
+      content="JSON formatter, JSON validator, JSON minifier, JSON repair, XML formatter, XML validator, CSV formatter, CSV validator, JSON XML CSV tool">
+
+<meta name="author" content="Ashutosh Pujari">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4LD8DY61FF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4LD8DY61FF');
+</script>
+
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #f4f7fb;
+    color: #1f2937;
+    transition: 0.3s;
+}
+
+body.dark {
+    background: #111827;
+    color: #e5e7eb;
+}
+
+header {
+    background: linear-gradient(135deg, #172554, #2563eb, #0891b2);
+    color: white;
+    padding: 22px 30px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.18);
+}
+
+.header-container {
+    max-width: 1500px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo-area h1 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.logo-area p {
+    margin: 7px 0 0;
+    opacity: 0.9;
+    font-size: 15px;
+}
+
+.theme-button {
+    border: none;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    padding: 11px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.container {
+    max-width: 1500px;
+    margin: 20px auto;
+    padding: 0 18px;
+}
+
+.toolbar {
+    background: white;
+    border-radius: 12px;
+    padding: 14px;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.08);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    align-items: center;
+}
+
+body.dark .toolbar,
+body.dark .panel,
+body.dark .info-box {
+    background: #1f2937;
+    color: #e5e7eb;
+}
+
+.format-selector {
+    display: flex;
+    gap: 5px;
+}
+
+.format-button {
+    padding: 10px 20px;
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.format-button.active {
+    background: #2563eb;
+    color: white;
+    border-color: #2563eb;
+}
+
+body.dark .format-button {
+    background: #374151;
+    color: white;
+    border-color: #4b5563;
+}
+
+.action-button {
+    border: none;
+    padding: 10px 15px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+}
+
+.btn-format {
+    background: #2563eb;
+}
+
+.btn-validate {
+    background: #059669;
+}
+
+.btn-minify {
+    background: #7c3aed;
+}
+
+.btn-repair {
+    background: #ea580c;
+}
+
+.btn-sample {
+    background: #0891b2;
+}
+
+.btn-clear {
+    background: #64748b;
+}
+
+.btn-file {
+    background: #475569;
+}
+
+.action-button:hover,
+.format-button:hover,
+.theme-button:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+.editor-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 18px;
+}
+
+.panel {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.08);
+}
+
+.panel-header {
+    padding: 13px 16px;
+    background: #eef2ff;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+body.dark .panel-header {
+    background: #374151;
+}
+
+textarea {
+    width: 100%;
+    height: 540px;
+    border: none;
+    outline: none;
+    resize: vertical;
+    padding: 18px;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 15px;
+    line-height: 1.55;
+    background: white;
+    color: #111827;
+}
+
+body.dark textarea {
+    background: #111827;
+    color: #e5e7eb;
+}
+
+.status {
+    padding: 12px 16px;
+    font-weight: bold;
+    border-top: 1px solid #e5e7eb;
+}
+
+.status.success {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status.error {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.status.warning {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+body.dark .status.success {
+    background: #14532d;
+    color: #bbf7d0;
+}
+
+body.dark .status.error {
+    background: #7f1d1d;
+    color: #fecaca;
+}
+
+body.dark .status.warning {
+    background: #78350f;
+    color: #fde68a;
+}
+
+.info-box {
+    margin-top: 18px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.08);
+}
+
+.info-box h2 {
+    margin-top: 0;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.info-card {
+    border: 1px solid #dbeafe;
+    padding: 14px;
+    border-radius: 9px;
+    background: #f8fafc;
+}
+
+body.dark .info-card {
+    background: #111827;
+    border-color: #374151;
+}
+
+.info-card strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+footer {
+    margin-top: 30px;
+    background: #172554;
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+footer a {
+    color: #93c5fd;
+    text-decoration: none;
+}
+
+.file-input {
+    display: none;
+}
+
+.drop-area {
+    border: 2px dashed #94a3b8;
+    margin: 12px 16px 0;
+    padding: 12px;
+    text-align: center;
+    border-radius: 8px;
+    color: #64748b;
+}
+
+@media(max-width: 900px) {
+    .editor-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media(max-width: 600px) {
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .format-selector {
+        width: 100%;
+    }
+
+    .format-button {
+        flex: 1;
+    }
+
+    .action-button {
+        width: 100%;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .logo-area h1 {
+        font-size: 23px;
+    }
+
+    textarea {
+        height: 400px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-container">
+        <div class="logo-area">
+            <h1>JSON • XML • CSV Toolkit</h1>
+            <p>Format • Validate • Minify • Detect Errors • Auto Repair</p>
+        </div>
+
+        <button class="theme-button" onclick="toggleTheme()">
+            🌙 Dark / ☀️ Light
+        </button>
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="toolbar">
+
+        <div class="format-selector">
+            <button class="format-button active"
+                    onclick="selectFormat('JSON', this)">
+                JSON
+            </button>
+
+            <button class="format-button"
+                    onclick="selectFormat('XML', this)">
+                XML
+            </button>
+
+            <button class="format-button"
+                    onclick="selectFormat('CSV', this)">
+                CSV
+            </button>
+        </div>
+
+        <button class="action-button btn-format"
+                onclick="formatData()">
+            ✨ Format
+        </button>
+
+        <button class="action-button btn-validate"
+                onclick="validateData()">
+            ✓ Validate
+        </button>
+
+        <button class="action-button btn-minify"
+                onclick="minifyData()">
+            ⇩ Minify
+        </button>
+
+        <button class="action-button btn-repair"
+                onclick="repairData()">
+            🔧 Auto Repair
+        </button>
+
+        <button class="action-button btn-sample"
+                onclick="loadSample()">
+            📄 Sample
+        </button>
+
+        <button class="action-button btn-file"
+                onclick="document.getElementById('fileInput').click()">
+            📁 Open File
+        </button>
+
+        <input type="file"
+               id="fileInput"
+               class="file-input"
+               accept=".json,.xml,.csv,.txt"
+               onchange="loadFile(event)">
+
+        <button class="action-button btn-clear"
+                onclick="clearAll()">
+            ✕ Clear
+        </button>
+
+    </div>
+
+    <div class="editor-grid">
+
+        <div class="panel">
+
+            <div class="panel-header">
+                <span>Input Data</span>
+                <span id="inputType">JSON</span>
+            </div>
+
+            <div class="drop-area"
+                 id="dropArea">
+                Drag & Drop JSON / XML / CSV file here
+            </div>
+
+            <textarea id="inputData"
+                      placeholder="Paste JSON, XML or CSV data here..."></textarea>
+
+            <div id="inputStatus"
+                 class="status">
+                Ready
+            </div>
+
+        </div>
+
+        <div class="panel">
+
+            <div class="panel-header">
+                <span>Output / Result</span>
+                <span id="outputType">JSON</span>
+            </div>
+
+            <textarea id="outputData"
+                      placeholder="Formatted / validated result will appear here..."
+                      readonly></textarea>
+
+            <div id="outputStatus"
+                 class="status">
+                Ready
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="toolbar" style="margin-top:18px;">
+
+        <button class="action-button btn-format"
+                onclick="copyOutput()">
+            📋 Copy
+        </button>
+
+        <button class="action-button btn-validate"
+                onclick="downloadOutput()">
+            ⬇ Download
+        </button>
+
+        <button class="action-button btn-minify"
+                onclick="emailOutput()">
+            ✉ Email
+        </button>
+
+        <button class="action-button btn-repair"
+                onclick="shareOutput()">
+            🔗 Share
+        </button>
+
+    </div>
+
+    <div class="info-box">
+
+        <h2>JSON, XML & CSV Online Utility</h2>
+
+        <p>
+            Use this tool to format, validate, minify and repair
+            structured data directly in your browser.
+            Your data is processed locally by JavaScript.
+        </p>
+
+        <div class="info-grid">
+
+            <div class="info-card">
+                <strong>JSON</strong>
+                Validate syntax, format JSON, minify and repair common errors.
+            </div>
+
+            <div class="info-card">
+                <strong>XML</strong>
+                Validate XML structure, format and minify XML.
+            </div>
+
+            <div class="info-card">
+                <strong>CSV</strong>
+                Validate CSV rows, format CSV and detect inconsistent columns.
+            </div>
+
+            <div class="info-card">
+                <strong>Developer Friendly</strong>
+                Copy, download, email and share results instantly.
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+
+    <strong>JSON • XML • CSV Toolkit</strong>
+    <br><br>
+
+    Format | Validate | Minify | Repair | Convert
+
+    <br><br>
+
+    Created for developers, testers, students and software professionals.
+
+    <br><br>
+
+    © 2026 Ashutosh Pujari
+
+</footer>
+
+
+<script>
+
+let currentFormat = "JSON";
+
+const inputBox = document.getElementById("inputData");
+const outputBox = document.getElementById("outputData");
+
+const inputStatus = document.getElementById("inputStatus");
+const outputStatus = document.getElementById("outputStatus");
+
+
+// --------------------------------------------------
+// FORMAT SELECTION
+// --------------------------------------------------
+
+function selectFormat(format, button) {
+
+    currentFormat = format;
+
+    document.querySelectorAll(".format-button")
+        .forEach(btn => btn.classList.remove("active"));
+
+    button.classList.add("active");
+
+    document.getElementById("inputType").textContent = format;
+    document.getElementById("outputType").textContent = format;
+
+    outputBox.value = "";
+
+    setStatus(
+        inputStatus,
+        "Ready for " + format + " data",
+        "warning"
+    );
+}
+
+
+// --------------------------------------------------
+// FORMAT
+// --------------------------------------------------
+
+function formatData() {
+
+    const data = inputBox.value.trim();
+
+    if (!data) {
+        showError("Please enter " + currentFormat + " data.");
+        return;
+    }
+
+    try {
+
+        if (currentFormat === "JSON") {
+
+            const parsed = JSON.parse(data);
+
+            outputBox.value =
+                JSON.stringify(parsed, null, 4);
+
+            showSuccess(
+                "Valid JSON. Formatting completed successfully."
+            );
+
+        } else if (currentFormat === "XML") {
+
+            const doc = parseXML(data);
+
+            outputBox.value =
+                formatXML(doc);
+
+            showSuccess(
+                "Valid XML. Formatting completed successfully."
+            );
+
+        } else if (currentFormat === "CSV") {
+
+            const rows = parseCSV(data);
+
+            validateCSVRows(rows);
+
+            outputBox.value =
+                formatCSV(rows);
+
+            showSuccess(
+                "Valid CSV. Formatting completed successfully."
+            );
+        }
+
+    } catch (error) {
+
+        outputBox.value = "";
+
+        showError(
+            getUsefulError(error)
+        );
+    }
+}
+
+
+// --------------------------------------------------
+// VALIDATE
+// --------------------------------------------------
+
+function validateData() {
+
+    const data = inputBox.value.trim();
+
+    if (!data) {
+        showError("Please enter data to validate.");
+        return;
+    }
+
+    try {
+
+        if (currentFormat === "JSON") {
+
+            JSON.parse(data);
+
+            outputBox.value =
+                "✓ JSON is valid.\n\nNo syntax errors detected.";
+
+            showSuccess("JSON validation successful.");
+
+        }
+
+        else if (currentFormat === "XML") {
+
+            parseXML(data);
+
+            outputBox.value =
+                "✓ XML is valid.\n\nNo XML parsing errors detected.";
+
+            showSuccess("XML validation successful.");
+
+        }
+
+        else if (currentFormat === "CSV") {
+
+            const rows = parseCSV(data);
+
+            validateCSVRows(rows);
+
+            outputBox.value =
+                "✓ CSV is valid.\n\n" +
+                "Rows: " + rows.length +
+                "\nColumns: " + rows[0].length;
+
+            showSuccess("CSV validation successful.");
+        }
+
+    } catch (error) {
+
+        outputBox.value =
+            "✗ Validation failed\n\n" +
+            getUsefulError(error);
+
+        showError(
+            getUsefulError(error)
+        );
+    }
+}
+
+
+// --------------------------------------------------
+// MINIFY
+// --------------------------------------------------
+
+function minifyData() {
+
+    const data = inputBox.value.trim();
+
+    if (!data) {
+        showError("Please enter data.");
+        return;
+    }
+
+    try {
+
+        if (currentFormat === "JSON") {
+
+            const parsed = JSON.parse(data);
+
+            outputBox.value =
+                JSON.stringify(parsed);
+
+        }
+
+        else if (currentFormat === "XML") {
+
+            const doc = parseXML(data);
+
+            outputBox.value =
+                new XMLSerializer()
+                    .serializeToString(doc)
+                    .replace(/>\s+</g, "><")
+                    .trim();
+
+        }
+
+        else if (currentFormat === "CSV") {
+
+            const rows = parseCSV(data);
+
+            validateCSVRows(rows);
+
+            outputBox.value =
+                rows.map(row =>
+                    row.map(csvEscape).join(",")
+                ).join("\n");
+        }
+
+        showSuccess("Minification completed successfully.");
+
+    } catch (error) {
+
+        showError(getUsefulError(error));
+    }
+}
+
+
+// --------------------------------------------------
+// JSON AUTO REPAIR
+// --------------------------------------------------
+
+function repairJSON(data) {
+
+    let repaired = data.trim();
+
+    // Remove markdown code fences
+    repaired = repaired
+        .replace(/^```json\s*/i, "")
+        .replace(/^```\s*/i, "")
+        .replace(/\s*```$/i, "")
+        .trim();
+
+    // Smart quotes
+    repaired = repaired
+        .replace(/[“”]/g, '"')
+        .replace(/[‘’]/g, "'");
+
+    // Remove BOM
+    repaired = repaired.replace(/^\uFEFF/, "");
+
+    // Remove trailing commas
+    repaired = repaired.replace(
+        /,\s*([}\]])/g,
+        "$1"
+    );
+
+    // Convert simple single-quoted JSON
+    if (
+        repaired.indexOf("'") !== -1 &&
+        repaired.indexOf('"') === -1
+    ) {
+        repaired = repaired
+            .replace(/'/g, '"');
+    }
+
+    // Add quotes around simple property names
+    repaired = repaired.replace(
+        /([{,]\s*)([A-Za-z_$][\w$-]*)(\s*:)/g,
+        '$1"$2"$3'
+    );
+
+    return repaired;
+}
+
+
+// --------------------------------------------------
+// XML AUTO REPAIR
+// --------------------------------------------------
+
+function repairXML(data) {
+
+    let repaired = data.trim();
+
+    // Remove XML markdown fences
+    repaired = repaired
+        .replace(/^```xml\s*/i, "")
+        .replace(/^```\s*/i, "")
+        .replace(/\s*```$/i, "")
+        .trim();
+
+    // Remove illegal control characters
+    repaired = repaired.replace(
+        /[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,
+        ""
+    );
+
+    // Normalize common smart quotes
+    repaired = repaired
+        .replace(/[“”]/g, '"')
+        .replace(/[‘’]/g, "'");
+
+    return repaired;
+}
+
+
+// --------------------------------------------------
+// CSV AUTO REPAIR
+// --------------------------------------------------
+
+function repairCSV(data) {
+
+    let rows = parseCSV(data);
+
+    if (!rows.length) {
+        return data;
+    }
+
+    const maxColumns =
+        Math.max(...rows.map(row => row.length));
+
+    rows = rows.map(row => {
+
+        while (row.length < maxColumns) {
+            row.push("");
+        }
+
+        return row;
+    });
+
+    return rows
+        .map(row =>
+            row.map(csvEscape).join(",")
+        )
+        .join("\n");
+}
+
+
+// --------------------------------------------------
+// AUTO REPAIR
+// --------------------------------------------------
+
+function repairData() {
+
+    const data = inputBox.value.trim();
+
+    if (!data) {
+        showError("Please enter data to repair.");
+        return;
+    }
+
+    try {
+
+        let repaired;
+
+        if (currentFormat === "JSON") {
+
+            repaired = repairJSON(data);
+
+            // Confirm repaired JSON
+            const parsed = JSON.parse(repaired);
+
+            outputBox.value =
+                JSON.stringify(parsed, null, 4);
+
+        }
+
+        else if (currentFormat === "XML") {
+
+            repaired = repairXML(data);
+
+            const doc = parseXML(repaired);
+
+            outputBox.value =
+                formatXML(doc);
+        }
+
+        else {
+
+            repaired = repairCSV(data);
+
+            outputBox.value =
+                repaired;
+        }
+
+        setStatus(
+            outputStatus,
+            "✓ Auto repair completed successfully.",
+            "success"
+        );
+
+        setStatus(
+            inputStatus,
+            "Common syntax issues repaired.",
+            "success"
+        );
+
+    } catch (error) {
+
+        outputBox.value =
+            "Automatic repair could not fully repair this data.\n\n" +
+            getUsefulError(error);
+
+        setStatus(
+            outputStatus,
+            "Repair incomplete",
+            "error"
+        );
+    }
+}
+
+
+// --------------------------------------------------
+// XML PARSER
+// --------------------------------------------------
+
+function parseXML(data) {
+
+    const parser = new DOMParser();
+
+    const doc =
+        parser.parseFromString(data, "application/xml");
+
+    const parserError =
+        doc.querySelector("parsererror");
+
+    if (parserError) {
+        throw new Error(
+            parserError.textContent
+                .replace(/\s+/g, " ")
+                .trim()
+        );
+    }
+
+    return doc;
+}
+
+
+// --------------------------------------------------
+// XML FORMATTER
+// --------------------------------------------------
+
+function formatXML(doc) {
+
+    const serializer =
+        new XMLSerializer();
+
+    let xml =
+        serializer.serializeToString(doc);
+
+    xml = xml.replace(
+        />\s*</g,
+        "><"
+    );
+
+    let formatted = "";
+    let indent = 0;
+
+    xml = xml.replace(
+        /(<[^>]+>)/g,
+        "\n$1"
+    );
+
+    const lines =
+        xml.split("\n")
+           .map(line => line.trim())
+           .filter(Boolean);
+
+    lines.forEach(line => {
+
+        if (
+            line.match(/^<\//) ||
+            line.match(/^<[^!?][^>]*\/>/)
+        ) {
+            indent =
+                Math.max(0, indent - 1);
+        }
+
+        formatted +=
+            "    ".repeat(indent) +
+            line +
+            "\n";
+
+        if (
+            line.match(/^<[^!?/][^>]*[^/]>/) &&
+            !line.match(/<\/[^>]+>$/)
+        ) {
+            indent++;
+        }
+    });
+
+    return formatted.trim();
+}
+
+
+// --------------------------------------------------
+// CSV PARSER
+// --------------------------------------------------
+
+function parseCSV(text) {
+
+    const rows = [];
+
+    let row = [];
+    let cell = "";
+    let insideQuotes = false;
+
+    for (let i = 0; i < text.length; i++) {
+
+        const char = text[i];
+
+        if (char === '"') {
+
+            if (
+                insideQuotes &&
+                text[i + 1] === '"'
+            ) {
+                cell += '"';
+                i++;
+            } else {
+                insideQuotes = !insideQuotes;
+            }
+
+        } else if (char === "," && !insideQuotes) {
+
+            row.push(cell);
+            cell = "";
+
+        } else if (
+            (char === "\n" || char === "\r") &&
+            !insideQuotes
+        ) {
+
+            if (
+                char === "\r" &&
+                text[i + 1] === "\n"
+            ) {
+                i++;
+            }
+
+            row.push(cell);
+            rows.push(row);
+
+            row = [];
+            cell = "";
+
+        } else {
+
+            cell += char;
+        }
+    }
+
+    if (cell !== "" || row.length > 0) {
+
+        row.push(cell);
+        rows.push(row);
+    }
+
+    return rows;
+}
+
+
+// --------------------------------------------------
+// CSV VALIDATION
+// --------------------------------------------------
+
+function validateCSVRows(rows) {
+
+    if (!rows.length) {
+        throw new Error("CSV contains no rows.");
+    }
+
+    const columns =
+        rows[0].length;
+
+    for (let i = 1; i < rows.length; i++) {
+
+        if (rows[i].length !== columns) {
+
+            throw new Error(
+                "CSV row " +
+                (i + 1) +
+                " contains " +
+                rows[i].length +
+                " columns, but expected " +
+                columns +
+                "."
+            );
+        }
+    }
+}
+
+
+// --------------------------------------------------
+// CSV FORMAT
+// --------------------------------------------------
+
+function formatCSV(rows) {
+
+    return rows
+        .map(row =>
+            row.map(csvEscape).join(", ")
+        )
+        .join("\n");
+}
+
+
+function csvEscape(value) {
+
+    value = String(value);
+
+    if (
+        value.includes(",") ||
+        value.includes('"') ||
+        value.includes("\n")
+    ) {
+        return '"' +
+            value.replace(/"/g, '""') +
+            '"';
+    }
+
+    return value;
+}
+
+
+// --------------------------------------------------
+// SAMPLE DATA
+// --------------------------------------------------
+
+function loadSample() {
+
+    if (currentFormat === "JSON") {
+
+        inputBox.value = `{
+  "employee": {
+    "id": 101,
+    "name": "Ashutosh",
+    "role": "Software Developer",
+    "technologies": [
+      "Java",
+      "Spring Boot",
+      "Microservices"
+    ]
+  },
+  "active": true
+}`;
+
+    }
+
+    else if (currentFormat === "XML") {
+
+        inputBox.value = `<employees>
+    <employee>
+        <id>101</id>
+        <name>Ashutosh</name>
+        <role>Software Developer</role>
+        <technology>Java</technology>
+        <technology>Spring Boot</technology>
+    </employee>
+</employees>`;
+
+    }
+
+    else {
+
+        inputBox.value =
+`id,name,role,technology
+101,Ashutosh,Software Developer,Java
+102,Rahul,Tester,JUnit
+103,Priya,Manager,Agile`;
+    }
+
+    setStatus(
+        inputStatus,
+        "Sample " + currentFormat + " loaded.",
+        "warning"
+    );
+}
+
+
+// --------------------------------------------------
+// COPY
+// --------------------------------------------------
+
+async function copyOutput() {
+
+    if (!outputBox.value) {
+        showError("There is no output to copy.");
+        return;
+    }
+
+    try {
+
+        await navigator.clipboard.writeText(
+            outputBox.value
+        );
+
+        setStatus(
+            outputStatus,
+            "✓ Output copied to clipboard.",
+            "success"
+        );
+
+    } catch (error) {
+
+        outputBox.select();
+
+        document.execCommand("copy");
+
+        setStatus(
+            outputStatus,
+            "✓ Output copied.",
+            "success"
+        );
+    }
+}
+
+
+// --------------------------------------------------
+// DOWNLOAD
+// --------------------------------------------------
+
+function downloadOutput() {
+
+    if (!outputBox.value) {
+        showError("There is no output to download.");
+        return;
+    }
+
+    let extension =
+        currentFormat.toLowerCase();
+
+    const blob =
+        new Blob(
+            [outputBox.value],
+            { type: "text/plain;charset=utf-8" }
+        );
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const a =
+        document.createElement("a");
+
+    a.href = url;
+
+    a.download =
+        "formatted-data." + extension;
+
+    document.body.appendChild(a);
+
+    a.click();
+
+    a.remove();
+
+    URL.revokeObjectURL(url);
+
+    setStatus(
+        outputStatus,
+        "✓ File downloaded successfully.",
+        "success"
+    );
+}
+
+
+// --------------------------------------------------
+// EMAIL
+// --------------------------------------------------
+
+function emailOutput() {
+
+    if (!outputBox.value) {
+        showError("There is no output to email.");
+        return;
+    }
+
+    const subject =
+        encodeURIComponent(
+            currentFormat +
+            " Formatted Data"
+        );
+
+    const body =
+        encodeURIComponent(
+            outputBox.value
+        );
+
+    window.location.href =
+        "mailto:?subject=" +
+        subject +
+        "&body=" +
+        body;
+}
+
+
+// --------------------------------------------------
+// SHARE
+// --------------------------------------------------
+
+async function shareOutput() {
+
+    if (!outputBox.value) {
+        showError("There is no output to share.");
+        return;
+    }
+
+    if (navigator.share) {
+
+        try {
+
+            await navigator.share({
+                title:
+                    currentFormat +
+                    " Formatted Data",
+
+                text:
+                    outputBox.value
+            });
+
+            setStatus(
+                outputStatus,
+                "✓ Shared successfully.",
+                "success"
+            );
+
+        } catch (error) {
+
+            // User cancelled share dialog.
+        }
+
+    } else {
+
+        await copyOutput();
+
+        alert(
+            "Web Share is not supported in this browser.\n\n" +
+            "The output has been copied to your clipboard."
+        );
+    }
+}
+
+
+// --------------------------------------------------
+// FILE LOAD
+// --------------------------------------------------
+
+function loadFile(event) {
+
+    const file =
+        event.target.files[0];
+
+    if (!file) return;
+
+    const reader =
+        new FileReader();
+
+    reader.onload =
+        function(e) {
+
+            inputBox.value =
+                e.target.result;
+
+            const name =
+                file.name.toLowerCase();
+
+            if (name.endsWith(".json")) {
+
+                currentFormat = "JSON";
+
+            } else if (name.endsWith(".xml")) {
+
+                currentFormat = "XML";
+
+            } else if (name.endsWith(".csv")) {
+
+                currentFormat = "CSV";
+            }
+
+            document
+                .getElementById("inputType")
+                .textContent = currentFormat;
+
+            document
+                .getElementById("outputType")
+                .textContent = currentFormat;
+
+            document
+                .querySelectorAll(".format-button")
+                .forEach(btn => {
+
+                    btn.classList.remove("active");
+
+                    if (
+                        btn.textContent.trim() ===
+                        currentFormat
+                    ) {
+                        btn.classList.add("active");
+                    }
+                });
+
+            setStatus(
+                inputStatus,
+                file.name + " loaded successfully.",
+                "success"
+            );
+        };
+
+    reader.readAsText(file);
+}
+
+
+// --------------------------------------------------
+// DRAG & DROP
+// --------------------------------------------------
+
+const dropArea =
+    document.getElementById("dropArea");
+
+dropArea.addEventListener(
+    "dragover",
+    function(e) {
+
+        e.preventDefault();
+
+        dropArea.style.background =
+            "#dbeafe";
+    }
+);
+
+dropArea.addEventListener(
+    "dragleave",
+    function() {
+
+        dropArea.style.background =
+            "";
+    }
+);
+
+dropArea.addEventListener(
+    "drop",
+    function(e) {
+
+        e.preventDefault();
+
+        dropArea.style.background =
+            "";
+
+        const file =
+            e.dataTransfer.files[0];
+
+        if (!file) return;
+
+        const reader =
+            new FileReader();
+
+        reader.onload =
+            function(event) {
+
+                inputBox.value =
+                    event.target.result;
+
+                const name =
+                    file.name.toLowerCase();
+
+                if (name.endsWith(".json")) {
+                    currentFormat = "JSON";
+                }
+                else if (name.endsWith(".xml")) {
+                    currentFormat = "XML";
+                }
+                else if (name.endsWith(".csv")) {
+                    currentFormat = "CSV";
+                }
+
+                document
+                    .getElementById("inputType")
+                    .textContent = currentFormat;
+
+                document
+                    .getElementById("outputType")
+                    .textContent = currentFormat;
+
+                setStatus(
+                    inputStatus,
+                    file.name +
+                    " loaded successfully.",
+                    "success"
+                );
+            };
+
+        reader.readAsText(file);
+    }
+);
+
+
+// --------------------------------------------------
+// CLEAR
+// --------------------------------------------------
+
+function clearAll() {
+
+    inputBox.value = "";
+
+    outputBox.value = "";
+
+    setStatus(
+        inputStatus,
+        "Ready",
+        ""
+    );
+
+    setStatus(
+        outputStatus,
+        "Ready",
+        ""
+    );
+}
+
+
+// --------------------------------------------------
+// STATUS
+// --------------------------------------------------
+
+function setStatus(element, message, type) {
+
+    element.textContent =
+        message;
+
+    element.className =
+        "status " +
+        (type || "");
+}
+
+
+function showSuccess(message) {
+
+    setStatus(
+        outputStatus,
+        "✓ " + message,
+        "success"
+    );
+
+    setStatus(
+        inputStatus,
+        "Validation successful",
+        "success"
+    );
+}
+
+
+function showError(message) {
+
+    setStatus(
+        outputStatus,
+        "✗ " + message,
+        "error"
+    );
+
+    setStatus(
+        inputStatus,
+        "Error detected",
+        "error"
+    );
+}
+
+
+// --------------------------------------------------
+// ERROR MESSAGE
+// --------------------------------------------------
+
+function getUsefulError(error) {
+
+    let message =
+        error && error.message
+            ? error.message
+            : String(error);
+
+    // JSON.parse error generally contains
+    // useful position information.
+
+    return message;
+}
+
+
+// --------------------------------------------------
+// DARK MODE
+// --------------------------------------------------
+
+function toggleTheme() {
+
+    document.body.classList.toggle("dark");
+
+    const dark =
+        document.body.classList.contains("dark");
+
+    localStorage.setItem(
+        "jsonXmlCsvDarkMode",
+        dark ? "true" : "false"
+    );
+}
+
+
+// Restore theme
+if (
+    localStorage.getItem(
+        "jsonXmlCsvDarkMode"
+    ) === "true"
+) {
+    document.body.classList.add("dark");
+}
+
+
+// --------------------------------------------------
+// KEYBOARD SHORTCUTS
+// --------------------------------------------------
+
+document.addEventListener(
+    "keydown",
+    function(e) {
+
+        // Ctrl + Enter = Format
+
+        if (
+            e.ctrlKey &&
+            e.key === "Enter"
+        ) {
+            e.preventDefault();
+            formatData();
+        }
+
+        // Ctrl + Shift + V = Validate
+
+        if (
+            e.ctrlKey &&
+            e.shiftKey &&
+            e.key.toLowerCase() === "v"
+        ) {
+            e.preventDefault();
+            validateData();
+        }
+    }
+);
+
+</script>
+
+</body>
+</html>
