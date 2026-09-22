@@ -1,0 +1,1768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="description"
+      content="Free CSV JSON XML Converter. Convert CSV to JSON, CSV to XML, JSON to CSV, XML to CSV, JSON to XML and XML to JSON online.">
+
+<meta name="keywords"
+      content="CSV JSON converter, CSV XML converter, JSON CSV converter, XML CSV converter, JSON XML converter, developer tools">
+
+<title>CSV JSON XML Converter | Free Online Developer Tool</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4LD8DY61FF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4LD8DY61FF');
+</script>
+
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(135deg, #eef4ff, #f8fbff);
+        color: #1f2937;
+    }
+
+    header {
+        background: linear-gradient(135deg, #172554, #1d4ed8);
+        color: white;
+        padding: 22px 20px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 30px;
+    }
+
+    header p {
+        margin: 8px 0 0;
+        font-size: 15px;
+        opacity: 0.95;
+    }
+
+    .container {
+        max-width: 1400px;
+        margin: 22px auto;
+        padding: 0 18px;
+    }
+
+    .toolbar {
+        background: white;
+        padding: 18px;
+        border-radius: 14px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        margin-bottom: 18px;
+    }
+
+    .toolbar-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .control-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    label {
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    select {
+        padding: 10px 13px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        background: white;
+        font-size: 15px;
+        min-width: 140px;
+    }
+
+    button {
+        border: none;
+        border-radius: 8px;
+        padding: 11px 17px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .convert-btn {
+        background: #2563eb;
+        color: white;
+    }
+
+    .validate-btn {
+        background: #059669;
+        color: white;
+    }
+
+    .swap-btn {
+        background: #7c3aed;
+        color: white;
+    }
+
+    .clear-btn {
+        background: #dc2626;
+        color: white;
+    }
+
+    .example-btn {
+        background: #475569;
+        color: white;
+    }
+
+    .panels {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+    }
+
+    .panel {
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        overflow: hidden;
+    }
+
+    .panel-header {
+        padding: 13px 16px;
+        background: #f1f5f9;
+        border-bottom: 1px solid #e2e8f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .panel-header strong {
+        font-size: 17px;
+    }
+
+    .panel-header span {
+        font-size: 12px;
+        color: #64748b;
+    }
+
+    textarea {
+        width: 100%;
+        height: 500px;
+        border: none;
+        outline: none;
+        resize: vertical;
+        padding: 18px;
+        font-family: Consolas, "Courier New", monospace;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #111827;
+        background: #ffffff;
+    }
+
+    .output-area {
+        background: #f8fafc;
+    }
+
+    .result-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 12px 15px;
+        border-top: 1px solid #e2e8f0;
+    }
+
+    .result-actions button {
+        background: #334155;
+        color: white;
+        padding: 9px 13px;
+    }
+
+    .result-actions button:hover {
+        background: #1e293b;
+    }
+
+    .status {
+        margin-top: 18px;
+        padding: 14px 17px;
+        border-radius: 10px;
+        font-weight: bold;
+        display: none;
+    }
+
+    .success {
+        display: block;
+        background: #dcfce7;
+        color: #166534;
+        border: 1px solid #86efac;
+    }
+
+    .error {
+        display: block;
+        background: #fee2e2;
+        color: #991b1b;
+        border: 1px solid #fca5a5;
+    }
+
+    .info {
+        display: block;
+        background: #dbeafe;
+        color: #1e40af;
+        border: 1px solid #93c5fd;
+    }
+
+    .info-box {
+        margin-top: 18px;
+        background: white;
+        padding: 18px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    }
+
+    .info-box h3 {
+        margin-top: 0;
+    }
+
+    .formats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .format-tag {
+        padding: 7px 12px;
+        background: #e0e7ff;
+        color: #3730a3;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    footer {
+        margin-top: 35px;
+        padding: 25px;
+        text-align: center;
+        background: #172554;
+        color: white;
+    }
+
+    footer a {
+        color: #bfdbfe;
+        text-decoration: none;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    @media (max-width: 900px) {
+        .panels {
+            grid-template-columns: 1fr;
+        }
+
+        textarea {
+            height: 400px;
+        }
+
+        .toolbar-row {
+            align-items: stretch;
+        }
+
+        .control-group {
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        select {
+            flex: 1;
+        }
+
+        .toolbar button {
+            flex: 1;
+        }
+    }
+
+    @media (max-width: 600px) {
+        header h1 {
+            font-size: 24px;
+        }
+
+        .container {
+            padding: 0 10px;
+        }
+
+        textarea {
+            height: 350px;
+            font-size: 13px;
+        }
+
+        button {
+            width: 100%;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>CSV ↔ JSON ↔ XML Converter</h1>
+    <p>Convert, validate, copy, download, email and share your data instantly</p>
+</header>
+
+<div class="container">
+
+    <div class="toolbar">
+
+        <div class="toolbar-row">
+
+            <div class="control-group">
+                <label for="inputFormat">Input:</label>
+
+                <select id="inputFormat">
+                    <option value="csv">CSV</option>
+                    <option value="json">JSON</option>
+                    <option value="xml">XML</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="outputFormat">Output:</label>
+
+                <select id="outputFormat">
+                    <option value="json">JSON</option>
+                    <option value="xml">XML</option>
+                    <option value="csv">CSV</option>
+                </select>
+            </div>
+
+            <button class="convert-btn" onclick="convertData()">
+                🔄 Convert
+            </button>
+
+            <button class="validate-btn" onclick="validateInput()">
+                ✓ Validate
+            </button>
+
+            <button class="swap-btn" onclick="swapFormats()">
+                ⇄ Swap
+            </button>
+
+            <button class="example-btn" onclick="loadExample()">
+                📋 Example
+            </button>
+
+            <button class="clear-btn" onclick="clearAll()">
+                🗑 Clear
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="panels">
+
+        <!-- INPUT -->
+        <div class="panel">
+
+            <div class="panel-header">
+                <strong>Input</strong>
+                <span id="inputTypeLabel">CSV</span>
+            </div>
+
+            <textarea id="inputText"
+                      placeholder="Enter CSV, JSON or XML here..."></textarea>
+
+        </div>
+
+
+        <!-- OUTPUT -->
+        <div class="panel">
+
+            <div class="panel-header">
+                <strong>Output</strong>
+                <span id="outputTypeLabel">JSON</span>
+            </div>
+
+            <textarea id="outputText"
+                      class="output-area"
+                      readonly
+                      placeholder="Converted output will appear here..."></textarea>
+
+            <div class="result-actions">
+
+                <button onclick="copyOutput()">
+                    📋 Copy
+                </button>
+
+                <button onclick="downloadOutput()">
+                    ⬇ Download
+                </button>
+
+                <button onclick="emailOutput()">
+                    ✉ Email
+                </button>
+
+                <button onclick="shareOutput()">
+                    🔗 Share
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div id="status" class="status"></div>
+
+
+    <div class="info-box">
+
+        <h3>Supported Conversions</h3>
+
+        <div class="formats">
+
+            <span class="format-tag">CSV → JSON</span>
+            <span class="format-tag">CSV → XML</span>
+            <span class="format-tag">JSON → CSV</span>
+            <span class="format-tag">XML → CSV</span>
+            <span class="format-tag">JSON → XML</span>
+            <span class="format-tag">XML → JSON</span>
+
+        </div>
+
+        <p>
+            All conversion and validation is performed directly in your browser.
+            Your data is not uploaded to a server.
+        </p>
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    <div>
+        <strong>CSV JSON XML Converter</strong>
+    </div>
+
+    <div style="margin-top:8px;">
+        Free online developer utility for CSV, JSON and XML conversion.
+    </div>
+
+</footer>
+
+
+<script>
+
+/* ============================================================
+   BASIC UTILITIES
+   ============================================================ */
+
+function showStatus(message, type) {
+
+    const status = document.getElementById("status");
+
+    status.className = "status " + type;
+    status.innerHTML = message;
+}
+
+
+function escapeXml(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&apos;");
+}
+
+
+function unescapeXml(value) {
+
+    const textarea = document.createElement("textarea");
+
+    textarea.innerHTML = value;
+
+    return textarea.value;
+}
+
+
+/* ============================================================
+   CSV PARSER
+   ============================================================ */
+
+function parseCSV(csv) {
+
+    csv = csv.replace(/^\uFEFF/, "");
+
+    const rows = [];
+    let row = [];
+    let value = "";
+    let insideQuotes = false;
+
+    for (let i = 0; i < csv.length; i++) {
+
+        const char = csv[i];
+        const next = csv[i + 1];
+
+        if (char === '"') {
+
+            if (insideQuotes && next === '"') {
+
+                value += '"';
+                i++;
+
+            } else {
+
+                insideQuotes = !insideQuotes;
+            }
+
+        } else if (char === "," && !insideQuotes) {
+
+            row.push(value);
+            value = "";
+
+        } else if ((char === "\n" || char === "\r") && !insideQuotes) {
+
+            if (char === "\r" && next === "\n") {
+                i++;
+            }
+
+            row.push(value);
+            rows.push(row);
+
+            row = [];
+            value = "";
+
+        } else {
+
+            value += char;
+        }
+    }
+
+    if (value !== "" || row.length > 0) {
+
+        row.push(value);
+        rows.push(row);
+    }
+
+    return rows;
+}
+
+
+function csvToObjects(csv) {
+
+    const rows = parseCSV(csv);
+
+    if (rows.length < 1) {
+        throw new Error("CSV input is empty.");
+    }
+
+    const headers = rows[0].map(header => header.trim());
+
+    if (headers.length === 0) {
+        throw new Error("CSV header is missing.");
+    }
+
+    const duplicateHeaders = headers.filter(
+        (header, index) => headers.indexOf(header) !== index
+    );
+
+    if (duplicateHeaders.length > 0) {
+        throw new Error(
+            "Duplicate CSV column found: " +
+            duplicateHeaders[0]
+        );
+    }
+
+    const objects = [];
+
+    for (let i = 1; i < rows.length; i++) {
+
+        if (
+            rows[i].length === 1 &&
+            rows[i][0].trim() === ""
+        ) {
+            continue;
+        }
+
+        const obj = {};
+
+        for (let j = 0; j < headers.length; j++) {
+
+            obj[headers[j]] =
+                rows[i][j] !== undefined
+                    ? rows[i][j]
+                    : "";
+        }
+
+        objects.push(obj);
+    }
+
+    return objects;
+}
+
+
+/* ============================================================
+   CSV → JSON
+   ============================================================ */
+
+function csvToJSON(csv) {
+
+    const objects = csvToObjects(csv);
+
+    return JSON.stringify(objects, null, 4);
+}
+
+
+/* ============================================================
+   CSV → XML
+   ============================================================ */
+
+function csvToXML(csv) {
+
+    const objects = csvToObjects(csv);
+
+    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+    xml += "<records>\n";
+
+    objects.forEach((obj) => {
+
+        xml += "    <record>\n";
+
+        Object.keys(obj).forEach(key => {
+
+            const safeKey =
+                key.trim().replace(/[^a-zA-Z0-9_.-]/g, "_");
+
+            xml +=
+                "        <" +
+                safeKey +
+                ">" +
+                escapeXml(obj[key]) +
+                "</" +
+                safeKey +
+                ">\n";
+        });
+
+        xml += "    </record>\n";
+    });
+
+    xml += "</records>";
+
+    return formatXML(xml);
+}
+
+
+/* ============================================================
+   JSON → CSV
+   ============================================================ */
+
+function jsonToCSV(jsonText) {
+
+    const data = JSON.parse(jsonText);
+
+    if (!Array.isArray(data)) {
+
+        throw new Error(
+            "JSON must contain an array of objects for CSV conversion."
+        );
+    }
+
+    if (data.length === 0) {
+        return "";
+    }
+
+    const headers = [];
+
+    data.forEach(obj => {
+
+        if (
+            typeof obj !== "object" ||
+            obj === null ||
+            Array.isArray(obj)
+        ) {
+            throw new Error(
+                "JSON array must contain objects."
+            );
+        }
+
+        Object.keys(obj).forEach(key => {
+
+            if (!headers.includes(key)) {
+                headers.push(key);
+            }
+        });
+    });
+
+
+    function csvEscape(value) {
+
+        if (value === null || value === undefined) {
+            return "";
+        }
+
+        if (typeof value === "object") {
+            value = JSON.stringify(value);
+        }
+
+        value = String(value);
+
+        if (
+            value.includes(",") ||
+            value.includes('"') ||
+            value.includes("\n")
+        ) {
+            value = '"' +
+                value.replace(/"/g, '""') +
+                '"';
+        }
+
+        return value;
+    }
+
+
+    const lines = [];
+
+    lines.push(
+        headers.map(csvEscape).join(",")
+    );
+
+    data.forEach(obj => {
+
+        lines.push(
+            headers.map(header =>
+                csvEscape(obj[header])
+            ).join(",")
+        );
+    });
+
+    return lines.join("\n");
+}
+
+
+/* ============================================================
+   XML PARSING
+   ============================================================ */
+
+function parseXML(xmlText) {
+
+    const parser = new DOMParser();
+
+    const xml = parser.parseFromString(
+        xmlText,
+        "application/xml"
+    );
+
+    const errorNode =
+        xml.querySelector("parsererror");
+
+    if (errorNode) {
+        throw new Error("Invalid XML format.");
+    }
+
+    return xml;
+}
+
+
+/* ============================================================
+   XML → JSON
+   ============================================================ */
+
+function xmlNodeToObject(node) {
+
+    if (node.children.length === 0) {
+
+        return node.textContent.trim();
+    }
+
+    const obj = {};
+
+    Array.from(node.children).forEach(child => {
+
+        const value = xmlNodeToObject(child);
+
+        if (obj[child.nodeName] !== undefined) {
+
+            if (!Array.isArray(obj[child.nodeName])) {
+
+                obj[child.nodeName] = [
+                    obj[child.nodeName]
+                ];
+            }
+
+            obj[child.nodeName].push(value);
+
+        } else {
+
+            obj[child.nodeName] = value;
+        }
+    });
+
+    return obj;
+}
+
+
+function xmlToJSON(xmlText) {
+
+    const xml = parseXML(xmlText);
+
+    const root = xml.documentElement;
+
+    const result = {};
+
+    result[root.nodeName] =
+        xmlNodeToObject(root);
+
+    return JSON.stringify(result, null, 4);
+}
+
+
+/* ============================================================
+   XML → CSV
+   ============================================================ */
+
+function xmlToCSV(xmlText) {
+
+    const xml = parseXML(xmlText);
+
+    const root = xml.documentElement;
+
+    let records = [];
+
+
+    /*
+       Preferred structure:
+
+       <records>
+           <record>
+               <name>John</name>
+               <age>30</age>
+           </record>
+
+           <record>
+               ...
+           </record>
+       </records>
+    */
+
+    let recordNodes =
+        Array.from(root.children)
+            .filter(node =>
+                node.children.length > 0
+            );
+
+
+    /*
+       If root itself contains one type of repeated child
+       use those children as records.
+    */
+
+    if (recordNodes.length === 0) {
+
+        throw new Error(
+            "XML does not contain record elements."
+        );
+    }
+
+
+    recordNodes.forEach(record => {
+
+        const obj = {};
+
+        Array.from(record.children).forEach(child => {
+
+            obj[child.nodeName] =
+                child.textContent.trim();
+        });
+
+        records.push(obj);
+    });
+
+
+    return jsonToCSV(
+        JSON.stringify(records)
+    );
+}
+
+
+/* ============================================================
+   JSON → XML
+   ============================================================ */
+
+function jsonValueToXML(value, nodeName, indent) {
+
+    const spaces = " ".repeat(indent);
+
+    nodeName =
+        nodeName.replace(/[^a-zA-Z0-9_.-]/g, "_");
+
+
+    if (Array.isArray(value)) {
+
+        return value.map(item =>
+            jsonValueToXML(
+                item,
+                nodeName,
+                indent
+            )
+        ).join("\n");
+    }
+
+
+    if (
+        value !== null &&
+        typeof value === "object"
+    ) {
+
+        let result =
+            spaces + "<" + nodeName + ">\n";
+
+        Object.keys(value).forEach(key => {
+
+            result +=
+                jsonValueToXML(
+                    value[key],
+                    key,
+                    indent + 4
+                ) + "\n";
+        });
+
+        result +=
+            spaces +
+            "</" +
+            nodeName +
+            ">";
+
+        return result;
+    }
+
+
+    return (
+        spaces +
+        "<" +
+        nodeName +
+        ">" +
+        escapeXml(
+            value === null ? "" : value
+        ) +
+        "</" +
+        nodeName +
+        ">"
+    );
+}
+
+
+function jsonToXML(jsonText) {
+
+    const data = JSON.parse(jsonText);
+
+    let xml =
+        '<?xml version="1.0" encoding="UTF-8"?>\n';
+
+    if (
+        typeof data === "object" &&
+        data !== null &&
+        !Array.isArray(data)
+    ) {
+
+        const keys = Object.keys(data);
+
+        if (keys.length === 1) {
+
+            xml +=
+                jsonValueToXML(
+                    data[keys[0]],
+                    keys[0],
+                    0
+                );
+
+        } else {
+
+            xml += "<root>\n";
+
+            keys.forEach(key => {
+
+                xml +=
+                    jsonValueToXML(
+                        data[key],
+                        key,
+                        4
+                    ) + "\n";
+            });
+
+            xml += "</root>";
+        }
+
+    } else {
+
+        xml +=
+            jsonValueToXML(
+                data,
+                "root",
+                0
+            );
+    }
+
+    return formatXML(xml);
+}
+
+
+/* ============================================================
+   XML FORMATTER
+   ============================================================ */
+
+function formatXML(xml) {
+
+    let formatted = "";
+    let indent = 0;
+
+    xml = xml
+        .replace(/>\s*</g, "><")
+        .replace(/</g, "~::~<")
+        .replace(/\s*xmlns:/g, " xmlns:");
+
+    const nodes = xml.split("~::~");
+
+    nodes.forEach(node => {
+
+        if (!node.trim()) {
+            return;
+        }
+
+        if (node.match(/^<\//)) {
+
+            indent--;
+        }
+
+        formatted +=
+            "    ".repeat(Math.max(indent, 0)) +
+            node.trim() +
+            "\n";
+
+        if (
+            node.match(/^<[^!?/][^>]*[^/]>/) &&
+            !node.match(/<\/[^>]+>$/)
+        ) {
+
+            indent++;
+        }
+    });
+
+    return formatted.trim();
+}
+
+
+/* ============================================================
+   VALIDATION
+   ============================================================ */
+
+function validateInput() {
+
+    const format =
+        document.getElementById("inputFormat").value;
+
+    const input =
+        document.getElementById("inputText").value.trim();
+
+
+    if (!input) {
+
+        showStatus(
+            "Please enter input data.",
+            "error"
+        );
+
+        return false;
+    }
+
+
+    try {
+
+        if (format === "json") {
+
+            JSON.parse(input);
+
+            showStatus(
+                "✓ Valid JSON format.",
+                "success"
+            );
+
+        } else if (format === "xml") {
+
+            parseXML(input);
+
+            showStatus(
+                "✓ Valid XML format.",
+                "success"
+            );
+
+        } else if (format === "csv") {
+
+            const rows = parseCSV(input);
+
+            if (
+                rows.length === 0 ||
+                rows[0].length === 0
+            ) {
+                throw new Error(
+                    "CSV header is missing."
+                );
+            }
+
+            showStatus(
+                "✓ Valid CSV format. " +
+                rows.length +
+                " row(s) detected.",
+                "success"
+            );
+        }
+
+        return true;
+
+    } catch (error) {
+
+        showStatus(
+            "✕ Invalid " +
+            format.toUpperCase() +
+            ": " +
+            error.message,
+            "error"
+        );
+
+        return false;
+    }
+}
+
+
+/* ============================================================
+   MAIN CONVERSION
+   ============================================================ */
+
+function convertData() {
+
+    const inputFormat =
+        document.getElementById("inputFormat").value;
+
+    const outputFormat =
+        document.getElementById("outputFormat").value;
+
+    const input =
+        document.getElementById("inputText").value.trim();
+
+    const output =
+        document.getElementById("outputText");
+
+
+    if (!input) {
+
+        showStatus(
+            "Please enter input data first.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    try {
+
+        /*
+           Validate first
+        */
+
+        if (!validateInput()) {
+            return;
+        }
+
+
+        let result = "";
+
+
+        /*
+           Same format
+        */
+
+        if (inputFormat === outputFormat) {
+
+            if (inputFormat === "json") {
+
+                result =
+                    JSON.stringify(
+                        JSON.parse(input),
+                        null,
+                        4
+                    );
+
+            } else if (inputFormat === "xml") {
+
+                result = formatXML(input);
+
+            } else {
+
+                result = input;
+            }
+
+        }
+
+
+        /*
+           CSV → JSON
+        */
+
+        else if (
+            inputFormat === "csv" &&
+            outputFormat === "json"
+        ) {
+
+            result = csvToJSON(input);
+        }
+
+
+        /*
+           CSV → XML
+        */
+
+        else if (
+            inputFormat === "csv" &&
+            outputFormat === "xml"
+        ) {
+
+            result = csvToXML(input);
+        }
+
+
+        /*
+           JSON → CSV
+        */
+
+        else if (
+            inputFormat === "json" &&
+            outputFormat === "csv"
+        ) {
+
+            result = jsonToCSV(input);
+        }
+
+
+        /*
+           JSON → XML
+        */
+
+        else if (
+            inputFormat === "json" &&
+            outputFormat === "xml"
+        ) {
+
+            result = jsonToXML(input);
+        }
+
+
+        /*
+           XML → JSON
+        */
+
+        else if (
+            inputFormat === "xml" &&
+            outputFormat === "json"
+        ) {
+
+            result = xmlToJSON(input);
+        }
+
+
+        /*
+           XML → CSV
+        */
+
+        else if (
+            inputFormat === "xml" &&
+            outputFormat === "csv"
+        ) {
+
+            result = xmlToCSV(input);
+        }
+
+
+        output.value = result;
+
+
+        showStatus(
+            "✓ Conversion successful: " +
+            inputFormat.toUpperCase() +
+            " → " +
+            outputFormat.toUpperCase(),
+            "success"
+        );
+
+    } catch (error) {
+
+        output.value = "";
+
+        showStatus(
+            "✕ Conversion failed: " +
+            error.message,
+            "error"
+        );
+    }
+}
+
+
+/* ============================================================
+   COPY
+   ============================================================ */
+
+function copyOutput() {
+
+    const output =
+        document.getElementById("outputText");
+
+    if (!output.value) {
+
+        showStatus(
+            "There is no output to copy.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    navigator.clipboard.writeText(
+        output.value
+    ).then(() => {
+
+        showStatus(
+            "✓ Output copied to clipboard.",
+            "success"
+        );
+
+    }).catch(() => {
+
+        output.select();
+
+        document.execCommand("copy");
+
+        showStatus(
+            "✓ Output copied to clipboard.",
+            "success"
+        );
+    });
+}
+
+
+/* ============================================================
+   DOWNLOAD
+   ============================================================ */
+
+function downloadOutput() {
+
+    const output =
+        document.getElementById("outputText").value;
+
+    const format =
+        document.getElementById("outputFormat").value;
+
+
+    if (!output) {
+
+        showStatus(
+            "There is no output to download.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const extensions = {
+
+        csv: "csv",
+        json: "json",
+        xml: "xml"
+    };
+
+
+    const mimeTypes = {
+
+        csv: "text/csv",
+        json: "application/json",
+        xml: "application/xml"
+    };
+
+
+    const blob =
+        new Blob(
+            [output],
+            {
+                type: mimeTypes[format]
+            }
+        );
+
+
+    const url =
+        URL.createObjectURL(blob);
+
+
+    const link =
+        document.createElement("a");
+
+    link.href = url;
+
+    link.download =
+        "converted-data." +
+        extensions[format];
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
+
+
+    showStatus(
+        "✓ File downloaded successfully.",
+        "success"
+    );
+}
+
+
+/* ============================================================
+   EMAIL
+   ============================================================ */
+
+function emailOutput() {
+
+    const output =
+        document.getElementById("outputText").value;
+
+
+    if (!output) {
+
+        showStatus(
+            "There is no output to email.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    const format =
+        document.getElementById("outputFormat")
+            .value
+            .toUpperCase();
+
+
+    const subject =
+        encodeURIComponent(
+            format +
+            " Conversion Result"
+        );
+
+
+    const body =
+        encodeURIComponent(output);
+
+
+    window.location.href =
+        "mailto:?subject=" +
+        subject +
+        "&body=" +
+        body;
+}
+
+
+/* ============================================================
+   SHARE
+   ============================================================ */
+
+async function shareOutput() {
+
+    const output =
+        document.getElementById("outputText").value;
+
+
+    if (!output) {
+
+        showStatus(
+            "There is no output to share.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if (navigator.share) {
+
+        try {
+
+            await navigator.share({
+
+                title:
+                    "CSV JSON XML Converter",
+
+                text: output
+
+            });
+
+
+            showStatus(
+                "✓ Shared successfully.",
+                "success"
+            );
+
+        } catch (error) {
+
+            if (error.name !== "AbortError") {
+
+                showStatus(
+                    "Unable to share the output.",
+                    "error"
+                );
+            }
+        }
+
+    } else {
+
+        await navigator.clipboard.writeText(output);
+
+        showStatus(
+            "Web Share is not supported in this browser. Output copied to clipboard instead.",
+            "info"
+        );
+    }
+}
+
+
+/* ============================================================
+   SWAP
+   ============================================================ */
+
+function swapFormats() {
+
+    const inputFormat =
+        document.getElementById("inputFormat");
+
+    const outputFormat =
+        document.getElementById("outputFormat");
+
+
+    const temp =
+        inputFormat.value;
+
+    inputFormat.value =
+        outputFormat.value;
+
+    outputFormat.value =
+        temp;
+
+
+    updateLabels();
+
+
+    const input =
+        document.getElementById("inputText");
+
+    const output =
+        document.getElementById("outputText");
+
+
+    if (output.value) {
+
+        const oldInput =
+            input.value;
+
+        input.value =
+            output.value;
+
+        output.value =
+            oldInput;
+    }
+
+
+    showStatus(
+        "✓ Input and output formats swapped.",
+        "info"
+    );
+}
+
+
+/* ============================================================
+   LABEL UPDATE
+   ============================================================ */
+
+function updateLabels() {
+
+    const input =
+        document.getElementById("inputFormat").value;
+
+    const output =
+        document.getElementById("outputFormat").value;
+
+
+    document.getElementById(
+        "inputTypeLabel"
+    ).textContent =
+        input.toUpperCase();
+
+
+    document.getElementById(
+        "outputTypeLabel"
+    ).textContent =
+        output.toUpperCase();
+}
+
+
+document.getElementById("inputFormat")
+    .addEventListener(
+        "change",
+        updateLabels
+    );
+
+
+document.getElementById("outputFormat")
+    .addEventListener(
+        "change",
+        updateLabels
+    );
+
+
+/* ============================================================
+   EXAMPLES
+   ============================================================ */
+
+function loadExample() {
+
+    const format =
+        document.getElementById("inputFormat").value;
+
+
+    const input =
+        document.getElementById("inputText");
+
+
+    if (format === "csv") {
+
+        input.value =
+`id,name,email,department
+101,Amit,amit@example.com,IT
+102,John,john@example.com,HR
+103,Sarah,sarah@example.com,Finance`;
+
+    } else if (format === "json") {
+
+        input.value =
+`[
+    {
+        "id": 101,
+        "name": "Amit",
+        "email": "amit@example.com",
+        "department": "IT"
+    },
+    {
+        "id": 102,
+        "name": "John",
+        "email": "john@example.com",
+        "department": "HR"
+    },
+    {
+        "id": 103,
+        "name": "Sarah",
+        "email": "sarah@example.com",
+        "department": "Finance"
+    }
+]`;
+
+    } else {
+
+        input.value =
+`<?xml version="1.0" encoding="UTF-8"?>
+<records>
+    <record>
+        <id>101</id>
+        <name>Amit</name>
+        <email>amit@example.com</email>
+        <department>IT</department>
+    </record>
+    <record>
+        <id>102</id>
+        <name>John</name>
+        <email>john@example.com</email>
+        <department>HR</department>
+    </record>
+    <record>
+        <id>103</id>
+        <name>Sarah</name>
+        <email>sarah@example.com</email>
+        <department>Finance</department>
+    </record>
+</records>`;
+    }
+
+
+    document.getElementById("outputText").value = "";
+
+    showStatus(
+        "✓ Example data loaded.",
+        "info"
+    );
+}
+
+
+/* ============================================================
+   CLEAR
+   ============================================================ */
+
+function clearAll() {
+
+    document.getElementById("inputText").value = "";
+
+    document.getElementById("outputText").value = "";
+
+    document.getElementById("status").className =
+        "status";
+
+    document.getElementById("status").innerHTML = "";
+}
+
+
+/* ============================================================
+   INITIALIZATION
+   ============================================================ */
+
+updateLabels();
+
+</script>
+
+</body>
+</html>
